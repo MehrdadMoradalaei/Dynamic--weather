@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/ba8413f870.js" crossorigin="anonymous"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.0/iconify-icon.min.js"></script>
+</head>
+<body>
+    <div class="Reader">
+        <button type="button" onclick="getData()">Current Weather</button>
+        <input type="text" id="1" placeholder="Your City">
+    </div>
+    <div class="Chart">
+        <div class="city" >
+            <div id="City">City</div>
+            <i class="fa-solid fa-location-dot"></i>
+        <div/>
+        <div class="temp">
+            <div id="cityweather">Temperature</div>
+            <i class="fa-solid fa-temperature-three-quarters"></i>
+        </div>
+        <div class="wind" >
+            <div id="Wind">Wind Speed</div>
+            <i class="fa-solid fa-wind"></i>
+        </div>
+        <div class="feeling">
+            <div id="feeling">Real Feel</div>
+            <i class="fa-solid fa-temperature-low"></i>
+        </div>
+        <div class="humidity">
+            <div id="humidity">Humidity</div>
+            <iconify-icon icon="wi:humidity" width="30" height="30"></iconify-icon>
+        </div>
+    </div>
+    <script>
+        function getData(){
+            let cityName = document.getElementById("1").value;
+            let url=`https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=a5fc9d497ec4afe7c4c36feae2f9affa`;
+        fetch(url)
+        .then(res=>res.json())
+        .then(weather=>{
+            document.getElementById(`City`).innerHTML= weather.name;
+            document.getElementById(`cityweather`).innerHTML= weather.main.temp;
+            document.getElementById(`Wind`).innerHTML= weather.wind.speed;
+            document.getElementById(`feeling`).innerHTML= weather.main.feels_like;
+            document.getElementById(`humidity`).innerHTML= weather.main.humidity;
+        })
+        .catch(err=>console.log('there is an error!'));
+
+        }
+        
+    </script>
+</body>
+</html>
